@@ -1,5 +1,5 @@
 function cdf2ff(varargin)
-% convert Quad *.cdf files to FiatFlux *.ff files
+% convert Quad *.cdf files to FiatFlux *.ff files  
 % supports multiple files
 % requires netcdf.dll and the newest mexcdf toolbox
 % http://mexcdf.sourceforge.net/downloads/
@@ -32,28 +32,28 @@ if iscell(FileNames),
         %renames file without file extentions..
         FileN = strrep(FileN,'.cdf','');
         FileN = strrep(FileN,'.CDF','');
-        
+
         MS = zeros(SCANS ,round(MASS_MAX));
+        MZ = zeros(SCANS ,round(MASS_MAX));
         %actual_scan = 1;
         %scan_index(1) = 1;
-        
+        index = 0;
+
         hw = waitbar(0,'Building MS matrix...','Name',['Convert ' FileN '.CDF']);
         %while actual_scan < SCANS,
-        
-        for actual_scan = 1:SCANS-1
-            count = 0;
+        for actual_scan = 1:SCANS-1      
             
             for index = (1+scan_index(actual_scan)):(1+(scan_index(actual_scan) + point_count(actual_scan))),
-                count=count+1;
+               
                 index2 = round(mass_values(index));
                 % some arbitrary minimal intensity value???
                 
                 %if (intensity_values(index) > 50 )
                 if intensity_values(index) > 10,
-                    %    [MS(actual_scan,index2), intensity_values(index) ]
+                %    [MS(actual_scan,index2), intensity_values(index) ]
                     MS(actual_scan,index2) = MS(actual_scan,index2) + intensity_values(index);
-                    MZ.intensity(actual_scan,count) = intensity_values(index);
-                    MZ.mz(actual_scan,count) =  mass_values(index);
+                    MZi(actual_scan,index2) = MZ(actual_scan,index2) + mass_values(index);
+                    MZ(actual_scan,index2) = MZ(actual_scan,index2) + mass_values(index);
                 end
                 
             end

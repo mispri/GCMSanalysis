@@ -47,6 +47,7 @@ if ischar(nFileN)
                         DATA.ff.A = par('reset_frags');
                         DATA.ff.p = NDATA.ff.p;
                     end
+                    DATA.data.mz=S_DATA.MZ;
                     DATA.data.raw = full(S_DATA.MSmatrix);
                     rmfield(DATA.ff,'MSmatrix');
                     DATA.file.ff.path = PathName;
