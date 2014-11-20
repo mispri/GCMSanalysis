@@ -193,7 +193,7 @@ if ischar(nFileN)
     [DATA.ff.mdva,DATA.ff.fl] = ff_bmcorr(DATA.ff);
     DATA.ff.res = [];
     DATA.ff.mdvm = [];
-    [DATA.ff.mdvm,DATA.ff.res] = ff_fit(DATA.ff);
+%    [DATA.ff.mdvm,DATA.ff.res] = ff_fit(DATA.ff);
     DATA.ff.ratios = [];
     %DATA.ff.ratios = ff_metafor(new2glc(DATA.ff));
     FileN=strrep(FileN,'.ff','');
