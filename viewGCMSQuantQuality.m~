@@ -1,7 +1,7 @@
 if ~exist('NAMECONVERSION')
     load(NAMECONVERSION);
 end
-iAA=2;
+iAA=;
 for iFrag=1:5;
     try
         a=[];

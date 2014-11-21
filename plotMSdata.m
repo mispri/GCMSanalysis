@@ -7,6 +7,11 @@ for cFileName=fileNames
     cFileName=cell2mat(cFileName);
     Experiments(end+1).data=readFF(cFileName,pathName);
 end
+%Calculate the actual 12C and 13C levels
+Experiments=calculate12c13c(Experiments,isotopeDistributions);
+%Determine how much 12C and 13C is in each sample
+[Experiments]=calculate13cfraction(Experiments);
+
 %%
 h=figure('Name',cFileName);
 set(h,'units','normalized','Position',[0,0,1,1]);
