@@ -1,4 +1,7 @@
-[fileNames,pathName] = uigetfile('*.*','Select the ff file','MultiSelect', 'on');
+function Experiment=plotMSdata(fileNames,pathNames)
+if ~exist('pathNames')
+    [fileNames,pathName] = uigetfile('*.*','Select the ff file','MultiSelect', 'on');
+end
 if ~iscell(fileNames)
     fileNames={fileNames};
 end
@@ -7,7 +10,12 @@ for cFileName=fileNames
     cFileName=cell2mat(cFileName);
     Experiments(end+1).data=readFF(cFileName,pathName);
 end
+%Caluclate the expected isotope distriution
+if ~exist('isotopeDistributions')
+    isotopeDistributions=calculateexpecteddistributions(Experiments(1).data.ff.A);
+end
 %Calculate the actual 12C and 13C levels
+warning off
 Experiments=calculate12c13c(Experiments,isotopeDistributions);
 %Determine how much 12C and 13C is in each sample
 [Experiments]=calculate13cfraction(Experiments);
@@ -25,9 +33,9 @@ for iAA=allAA
         tmp=[];
         for iExp=1:length(Experiments)
             try
-                tmp(end+1,:)=Experiments(iExp).data.ff.mdva(iAA,iFrag).raw;
- %               tmp(end+1,:)=Experiments(iExp).data.ff.mdva(iAA,iFrag).corr_nat_iso;
-            end
+                %              tmp(end+1,:)=Experiments(iExp).data.ff.mdva(iAA,iFrag).raw;
+                %               tmp(end+1,:)=Experiments(iExp).data.ff.mdva(iAA,iFrag).corr_nat_iso;
+                tmp(end+1,:)=Experiments(iExp).data.ff.mdva(iAA,iFrag).actualdist;            end
         end
         try
             bar(tmp');
