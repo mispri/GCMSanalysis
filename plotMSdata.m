@@ -1,5 +1,5 @@
-function Experiment=plotMSdata(fileNames,pathNames)
-if ~exist('pathNames')
+function Experiments=plotMSdata(fileNames,pathName)
+if ~exist('pathName')
     [fileNames,pathName] = uigetfile('*.*','Select the ff file','MultiSelect', 'on');
 end
 if ~iscell(fileNames)
